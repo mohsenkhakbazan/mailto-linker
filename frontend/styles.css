@@ -1,0 +1,325 @@
+:root{
+  --bg: #0b0c10;
+  --card: rgba(17,19,24,0.86);
+  --card2: rgba(15,17,22,0.9);
+  --border: rgba(255,255,255,0.10);
+  --border2: rgba(255,255,255,0.14);
+  --text: rgba(255,255,255,0.92);
+  --muted: rgba(255,255,255,0.70);
+  --muted2: rgba(255,255,255,0.55);
+  --accent: #2b6ef7;
+  --danger: #ff4d4f;
+}
+
+*{ box-sizing:border-box; }
+
+html{
+  -webkit-text-size-adjust: 100%;
+}
+
+body{
+  margin:0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(1400px 800px at 15% -10%, rgba(43,110,247,0.22), transparent 60%),
+    radial-gradient(900px 600px at 100% 25%, rgba(255,255,255,0.08), transparent 55%),
+    var(--bg);
+
+  /* Better font rendering across browsers */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.shell{ min-height: 100vh; }
+
+.topbar{ padding: 26px 22px 10px; }
+
+.brand{
+  max-width: 1600px;
+  margin: 0 auto;
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.logo{
+  width:44px;
+  height:44px;
+  display:grid;
+  place-items:center;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid var(--border);
+}
+
+.title{
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  font-size: 30px;
+  line-height: 1.05;
+}
+
+.subtitle{
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.3;
+}
+
+.container{
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 10px 22px 42px;
+}
+
+.panel{
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 22px;
+  box-shadow: 0 24px 55px rgba(0,0,0,0.45);
+
+  /* Safari needs the prefixed property for backdrop-filter */
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.grid{
+  display:grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+
+@media (min-width: 980px){
+  .grid{
+    grid-template-columns: 1.25fr 0.85fr;
+    align-items:start;
+  }
+  .span2{ grid-column: 1 / -1; }
+}
+
+.col{ min-width: 0; }
+
+label{
+  display:block;
+  font-weight: 800;
+  font-size: 13px;
+  margin-bottom: 8px;
+  color: rgba(255,255,255,0.9);
+}
+
+.req{ color: var(--danger); }
+
+.labelrow{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap: 12px;
+}
+
+.meta{
+  color: var(--muted2);
+  font-size: 12px;
+}
+
+.hint{
+  margin-top: 8px;
+  color: var(--muted2);
+  font-size: 12px;
+}
+
+textarea, input, select{
+  width: 100%;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: var(--card2);
+  color: var(--text);
+  padding: 12px 14px;
+  outline: none;
+  font-size: 15px;
+  line-height: 1.35;
+}
+
+input, select{ height: 48px; }
+
+textarea{
+  resize: vertical;
+  min-height: 120px;
+}
+
+textarea.body{ min-height: 320px; }
+
+textarea:focus, input:focus, select:focus{
+  border-color: rgba(43,110,247,0.9);
+  box-shadow: 0 0 0 4px rgba(43,110,247,0.18);
+}
+
+/* Make selects look consistent across browsers */
+select{
+  -webkit-appearance: none;
+  appearance: none;
+  padding-right: 44px;
+  background-image:
+    linear-gradient(45deg, transparent 50%, rgba(255,255,255,0.75) 50%),
+    linear-gradient(135deg, rgba(255,255,255,0.75) 50%, transparent 50%);
+  background-position:
+    calc(100% - 18px) 50%,
+    calc(100% - 12px) 50%;
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+}
+
+.preview{
+  margin-top: 10px;
+  display:flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.preview .chip{
+  display:inline-flex;
+  align-items:center;
+  padding: 8px 11px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid var(--border);
+  color: rgba(255,255,255,0.74);
+  font-size: 12px;
+}
+
+.callout{
+  border-radius: 18px;
+  border: 1px dashed rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.04);
+  padding: 14px 14px;
+}
+
+.calloutTitle{
+  font-weight: 900;
+  font-size: 12px;
+  color: rgba(255,255,255,0.88);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.calloutBody{
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.actions{
+  margin-top: 14px;
+  display:flex;
+  align-items:center;
+  gap: 12px;
+}
+
+button{
+  border: 0;
+  border-radius: 16px;
+  padding: 12px 18px;
+  background: var(--accent);
+  color: white;
+  font-weight: 900;
+  cursor: pointer;
+  font-size: 14px;
+  letter-spacing: 0.01em;
+}
+
+button:active{ transform: translateY(1px); }
+
+button.secondary{
+  background: rgba(255,255,255,0.10);
+  border: 1px solid var(--border2);
+  color: rgba(255,255,255,0.92);
+}
+
+button.secondary:hover{ background: rgba(255,255,255,0.14); }
+
+.status{
+  color: var(--muted2);
+  font-size: 13px;
+}
+
+.result{
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255,255,255,0.10);
+}
+
+.resultRow{
+  display:flex;
+  gap: 10px;
+  align-items:center;
+  flex-wrap: wrap;
+}
+
+.resultRow input{
+  flex: 1;
+  min-width: 340px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+.linkbtn{
+  text-decoration: none;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  height: 48px;
+  padding: 0 16px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.10);
+  border: 1px solid var(--border2);
+  color: rgba(255,255,255,0.92);
+  font-weight: 900;
+  font-size: 14px;
+}
+
+.linkbtn:hover{ background: rgba(255,255,255,0.14); }
+
+.small{
+  margin-top: 10px;
+  color: var(--muted2);
+  font-size: 12px;
+}
+
+.error{
+  margin-top: 12px;
+  background: rgba(255, 77, 79, 0.12);
+  border: 1px solid rgba(255, 77, 79, 0.50);
+  border-radius: 16px;
+  padding: 12px 14px;
+  color: #ffd1d1;
+  font-size: 13px;
+  white-space: pre-wrap;
+}
+
+code{
+  background: rgba(0,0,0,0.28);
+  border: 1px solid rgba(255,255,255,0.10);
+  padding: 1px 7px;
+  border-radius: 10px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Improve vertical spacing around Expiration + Tip */
+
+.field + .field {
+  margin-top: 6px;
+}
+
+/* Extra space before Expiration section */
+label[for="ttl"] {
+  margin-top: 14px;
+}
+
+/* Extra space before the TIP callout */
+.callout {
+  margin-top: 16px;
+}
