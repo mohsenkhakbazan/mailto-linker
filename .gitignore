@@ -1,0 +1,24 @@
+# ---- Secrets / local env ----
+.env
+.env.*        # ignore .env.local, .env.production, etc...
+!.env.example # but keep the example template
+
+# ---- Local databases / runtime data ----
+data/
+*.db
+*.db-wal
+*.db-shm
+
+# ---- Node / build artifacts ----
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ---- OS / editor noise ----
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
