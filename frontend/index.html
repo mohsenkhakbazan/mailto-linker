@@ -31,7 +31,7 @@
                     <label for="to">To <span class="req">*</span></label>
                     <div class="meta"><span id="toCount">0</span>/100</div>
                   </div>
-                  <textarea id="to" rows="4" placeholder="Paste email addresses separated by comma, slash, semicolon, spaces, or newlines"></textarea>
+                  <textarea id="to" rows="4" placeholder="Paste email addresses here"></textarea>
                   <div class="hint">Separators: <code>,</code> <code>/</code> <code>;</code> <code>space</code> <code>newline</code></div>
                   <div id="toPreview" class="preview"></div>
                 </div>
@@ -88,7 +88,10 @@
                 <div id="result" class="result hidden">
                   <div class="resultRow">
                     <input id="shortUrl" readonly />
-                    <button id="copyBtn" type="button" class="secondary">Copy</button>
+                    <div class="copyWrap">
+                      <div id="copiedBadge" class="copied-badge hidden">Copied!</div>
+                      <button id="copyBtn" type="button" class="secondary">Copy</button>
+                    </div>
                     <a id="openBtn" class="secondary linkbtn" href="#" target="_blank" rel="noreferrer">Open</a>
                   </div>
                 </div>

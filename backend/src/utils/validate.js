@@ -24,12 +24,12 @@ export function validateCreatePayload(body) {
   const to = normalizeEmailList(body?.to);
   const cc = normalizeEmailList(body?.cc);
 
-  if (to.length === 0) errors.push("To is required.");
+  if (to.length === 0) errors.push("Recipient is required.");
   if (to.length > config.maxToRecipients) errors.push(`Max ${config.maxToRecipients} recipients in To.`);
   if (cc.length > config.maxCcRecipients) errors.push(`Max ${config.maxCcRecipients} recipients in CC.`);
 
-  for (const e of to) if (!EMAIL_RE.test(e)) errors.push(`Invalid To address: ${e}`);
-  for (const e of cc) if (!EMAIL_RE.test(e)) errors.push(`Invalid CC address: ${e}`);
+  for (const e of to) if (!EMAIL_RE.test(e)) errors.push(`Invalid Recipient address in "To": ${e}`);
+  for (const e of cc) if (!EMAIL_RE.test(e)) errors.push(`Invalid Recipient address in "CC": ${e}`);
 
   const subject = typeof body?.subject === "string" ? body.subject : "";
   const emailBody = typeof body?.body === "string" ? body.body : "";

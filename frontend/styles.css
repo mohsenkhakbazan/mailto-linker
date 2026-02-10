@@ -323,3 +323,58 @@ label[for="ttl"] {
 .callout {
   margin-top: 16px;
 }
+
+/* ensure we have hidden utility */
+.hidden { display: none !important; }
+
+/* copy badge wrapper */
+.copyWrap {
+  position: relative;
+  display: inline-block;
+}
+
+/* small badge above the button */
+.copied-badge {
+  position: absolute;
+  top: -36px;
+  left: 50%;
+  transform: translateX(-50%) translateY(0);
+  background: rgba(43,110,247,0.95);
+  color: white;
+  padding: 8px 10px;
+  border-radius: 12px;
+  font-weight: 800;
+  font-size: 13px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 160ms ease, transform 160ms ease;
+  white-space: nowrap;
+  z-index: 50;
+}
+
+/* visible state */
+.copied-badge.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-6px);
+}
+
+/* small triangle under the badge (optional) */
+.copied-badge::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 6px;
+  background: rgba(43,110,247,0.95);
+  clip-path: polygon(50% 100%, 0 0, 100% 0);
+  border-radius: 2px;
+}
+
+/* keep layout stable when badge appears */
+.copyWrap .secondary {
+  /* ensure copy button keeps standard size */
+  min-width: 78px;
+}
