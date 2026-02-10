@@ -202,9 +202,9 @@ document.getElementById("form")?.addEventListener("submit", async (e) => {
 
     hide(errorBox);
     show(resultBox);
-    statusEl.textContent = "Done.";
+    statusEl.textContent = "Done";
   } catch (_err) {
-    errorBox.textContent = "Network error. Please try again.";
+    errorBox.textContent = "Network error! Please try again";
     show(errorBox);
     statusEl.textContent = "";
   }
