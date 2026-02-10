@@ -25,8 +25,7 @@ resolveRouter.get("/:id", (req, res) => {
     return res.status(404).send(
       renderErrorHtml({
         title: "Link not found",
-        message: "This link is invalid or was removed.",
-        shortUrl
+        message: "This link is invalid or was removed",
       })
     );
   }
@@ -37,8 +36,7 @@ resolveRouter.get("/:id", (req, res) => {
     return res.status(404).send(
       renderErrorHtml({
         title: "Link not found",
-        message: "This link doesn’t exist or has already been deleted.",
-        shortUrl
+        message: "This link doesn’t exist or has already been deleted",
       })
     );
   }
@@ -50,8 +48,7 @@ resolveRouter.get("/:id", (req, res) => {
     return res.status(410).send(
       renderErrorHtml({
         title: "Link expired",
-        message: "This link has expired and can no longer open an email draft.",
-        shortUrl
+        message: "This link has expired and can no longer open an email draft",
       })
     );
   }

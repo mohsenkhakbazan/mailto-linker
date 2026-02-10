@@ -132,7 +132,7 @@ function refresh() {
     warn.push(`Invalid CC: ${lastParsed.cc.invalid.slice(0, 8).join(", ")}${lastParsed.cc.invalid.length > 8 ? "…" : ""}`);
   }
 
-  // ✅ Make the red error box truly dynamic
+  // Make the red error box truly dynamic
   if (warn.length) {
     errorBox.textContent = warn.join("\n");
     show(errorBox);
@@ -160,7 +160,7 @@ document.getElementById("form")?.addEventListener("submit", async (e) => {
   }
 
   if (lastParsed.to.emails.length === 0) {
-    errorBox.textContent = "To is required.";
+    errorBox.textContent = "Recipient is required";
     show(errorBox);
     statusEl.textContent = "";
     return;
@@ -210,11 +210,28 @@ document.getElementById("form")?.addEventListener("submit", async (e) => {
   }
 });
 
-document.getElementById("copyBtn")?.addEventListener("click", async () => {
+async function showCopiedBadge() {
+  if (!copiedBadge) return;
+  copiedBadge.classList.remove("hidden");
+  // small animation class
+  copiedBadge.classList.add("show");
+  // hide after 1 second
+  setTimeout(() => {
+    if (!copiedBadge) return;
+    copiedBadge.classList.remove("show");
+    // leave a short time for transition, then hide completely
+    setTimeout(() => copiedBadge.classList.add("hidden"), 160);
+  }, 1000);
+}
+
+copyBtn?.addEventListener("click", async () => {
   try {
     await navigator.clipboard.writeText(shortUrlEl.value);
   } catch {
     shortUrlEl.select();
     document.execCommand("copy");
+  } finally {
+    // show a badge above the copy button
+    showCopiedBadge();
   }
 });

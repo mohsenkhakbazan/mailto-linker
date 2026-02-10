@@ -82,19 +82,30 @@ export function renderLandingHtml({ mailto, shortUrl }) {
 }
 
 export function renderErrorHtml({ title, message, shortUrl }) {
+  const safeTitle = String(title || "Error").replace(/</g, "&lt;");
+  const safeMessage = String(message || "").replace(/</g, "&lt;");
+  const safeShortUrl = shortUrl ? String(shortUrl).replace(/</g, "&lt;") : "";
+  
   return `<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>${title}</title>
+  <title>${safeTitle}</title>
+  <style>
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;margin:0;display:flex;min-height:100vh;align-items:center;justify-content:center;background:#0b0c10;color:#eaeaea}
+    .card{max-width:560px;width:92%;background:#111318;border:1px solid #22262f;border-radius:16px;padding:22px;box-shadow:0 10px 25px rgba(0,0,0,.35)}
+    h1{font-size:18px;margin:0 0 10px}
+    p{margin:0 0 14px;opacity:.9;line-height:1.4}
+    .muted{font-size:12px;opacity:.75;margin-top:14px}
+    code{background:#0b0c10;padding:2px 6px;border-radius:8px}
+  </style>
 </head>
-<body style="font-family:system-ui;background:#0b0c10;color:#eaeaea;display:flex;align-items:center;justify-content:center;min-height:100vh">
-  <div>
-    <h1>${title}</h1>
-    <p>${message}</p>
-    <p><a href="/" style="color:#2b6ef7">Go to generator</a></p>
-    ${shortUrl ? `<small>${shortUrl}</small>` : ""}
+<body>
+  <div class="card">
+    <h1>${safeTitle}</h1>
+    <p>${safeMessage}</p>
+    ${safeShortUrl ? `<p class="muted">Link: <code>${safeShortUrl}</code></p>` : ""}
   </div>
 </body>
 </html>`;
