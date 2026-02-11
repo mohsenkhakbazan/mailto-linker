@@ -99,6 +99,24 @@ body{
   .span2{ grid-column: 1 / -1; }
 }
 
+@media (max-width: 640px){
+  .resultRow{
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .copyWrap,
+  .linkbtn{
+    align-self: flex-end;
+  }
+
+  .resultRow .shorturl{
+    width: 100%;
+  }
+}
+
+
 .col{ min-width: 0; }
 
 label{
@@ -257,11 +275,16 @@ button.secondary:hover{ background: rgba(255,255,255,0.14); }
   flex-wrap: wrap;
 }
 
-.resultRow input{
+.resultRow .shorturl{
   flex: 1;
-  min-width: 340px;
+  min-width: 0;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  resize: none;
+  overflow-wrap: break-word;
+  word-break: break-all;
+  white-space: pre-wrap;
 }
+
 
 .linkbtn{
   text-decoration: none;
