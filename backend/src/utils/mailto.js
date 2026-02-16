@@ -1,34 +1,34 @@
 export function buildMailtoUrl(payload) {
-  const to = (payload.to || []).join(",");
-  const cc = (payload.cc || []).join(",");
+  const toArr = Array.isArray(payload.to) ? payload.to : [];
+  const ccArr = Array.isArray(payload.cc) ? payload.cc : [];
+
+  const toList = toArr.join(",");
+  const ccList = ccArr.join(",");
+
+  // Put only the first To in the path to avoid duplicates on clients
+  // that might read both path + to= param
+  const primaryTo = toArr[0] ? encodeURIComponent(toArr[0]) : "";
 
   const parts = [];
 
-  if (payload.subject) {
-    parts.push("subject=" + encodeURIComponent(payload.subject));
-  }
+  // Putting other recipients in a`to=` query (fix: missing addresses on Android Gmail client)
+  if (toList) parts.push("to=" + encodeURIComponent(toList));
+  if (ccList) parts.push("cc=" + encodeURIComponent(ccList));
+
+  if (payload.subject) parts.push("subject=" + encodeURIComponent(payload.subject));
 
   if (payload.body) {
-    // Normalize line breaks first
-    const normalizedBody = payload.body.replace(/\r\n/g, "\n").replace(/\r/g, "\n");
-
-    // Mail clients expect CRLF (%0D%0A)
-    const bodyForMailto = normalizedBody.replace(/\n/g, "\r\n");
-
-    parts.push("body=" + encodeURIComponent(bodyForMailto));
-  }
-
-  if (cc) {
-    parts.push("cc=" + encodeURIComponent(cc));
+    const normalizedBody = String(payload.body)
+      .replace(/\r\n/g, "\n")
+      .replace(/\r/g, "\n")
+      .replace(/\n/g, "\r\n");
+    parts.push("body=" + encodeURIComponent(normalizedBody));
   }
 
   const query = parts.length ? "?" + parts.join("&") : "";
-
-  // IMPORTANT:
-  // - Do NOT encode the entire mailto string
-  // - Only encode individual components
-  return `mailto:${to}${query}`;
+  return `mailto:${primaryTo}${query}`;
 }
+
 
 export function inAppBrowserBlocksRedirect(userAgent = "") {
   const ua = userAgent.toLowerCase();
