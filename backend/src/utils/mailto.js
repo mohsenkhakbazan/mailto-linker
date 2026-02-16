@@ -49,6 +49,7 @@ export function inAppBrowserBlocksRedirect(userAgent = "") {
 
 export function renderLandingHtml({ mailto, shortUrl }) {
   const escapedMailto = mailto.replace(/"/g, "&quot;");
+  const escapedShort = String(shortUrl || "").replace(/</g, "&lt;").replace(/"/g, "&quot;");
 
   return `<!doctype html>
 <html lang="en">
@@ -61,9 +62,11 @@ export function renderLandingHtml({ mailto, shortUrl }) {
     .card{max-width:560px;width:92%;background:#111318;border:1px solid #22262f;border-radius:16px;padding:22px;box-shadow:0 10px 25px rgba(0,0,0,.35)}
     h1{font-size:18px;margin:0 0 10px}
     p{margin:0 0 14px;opacity:.9;line-height:1.4}
-    a.btn{display:inline-block;text-decoration:none;padding:12px 14px;border-radius:12px;background:#2b6ef7;color:white;font-weight:600}
-    .muted{font-size:12px;opacity:.75;margin-top:14px}
-    code{background:#0b0c10;padding:2px 6px;border-radius:8px}
+    a.btn{display:inline-block;text-decoration:none;padding:12px 14px;border-radius:12px;background:#2b6ef7;color:white;font-weight:700}
+    .muted{font-size:12px;opacity:.75;margin-top:12px}
+    code{background:#0b0c10;padding:2px 6px;border-radius:8px;border:1px solid rgba(255,255,255,0.10)}
+    .help{display:none;margin-top:14px;padding:12px 12px;border-radius:12px;background:rgba(255,255,255,0.05);border:1px dashed rgba(255,255,255,0.18)}
+    .help strong{display:block;margin-bottom:6px}
   </style>
 </head>
 <body>
@@ -71,15 +74,29 @@ export function renderLandingHtml({ mailto, shortUrl }) {
     <h1>Opening your email app…</h1>
     <p>If nothing happens, click the button below.</p>
     <p><a class="btn" href="${escapedMailto}">Open email</a></p>
-    <p class="muted">Link: <code>${shortUrl}</code></p>
+
+    <div id="help" class="help">
+      <strong>Didn’t open?</strong>
+      <div>Tap <b>Open email</b>. If you’re in an in-app browser (WhatsApp/Instagram/Telegram), open this link in your system browser, or add <code>?landing=1</code>.</div>
+    </div>
+
+    <p class="muted">Link: <code>${escapedShort}</code></p>
   </div>
 
   <script>
+    // Try immediately
     try { window.location.href = "${escapedMailto}"; } catch(e){}
+
+    // Show help after 2 seconds if they are still here
+    setTimeout(function () {
+      var el = document.getElementById("help");
+      if (el) el.style.display = "block";
+    }, 2000);
   </script>
 </body>
 </html>`;
 }
+
 
 export function renderErrorHtml({ title, message, shortUrl }) {
   const safeTitle = String(title || "Error").replace(/</g, "&lt;");
